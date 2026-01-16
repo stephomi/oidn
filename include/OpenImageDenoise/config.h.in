@@ -78,5 +78,27 @@
   #cmakedefine OIDN_DEVICE_METAL
 #endif
 
+#undef OIDN_DEVICE_CPU
+#undef OIDN_DEVICE_SYCL
+#undef OIDN_DEVICE_CUDA
+#undef OIDN_DEVICE_HIP
+#undef OIDN_DEVICE_METAL
+
+#ifdef NOMAD_OIDN_CPU
+  #define OIDN_DEVICE_CPU
+#endif
+#ifdef NOMAD_OIDN_SYCL
+  #define OIDN_DEVICE_SYCL
+#endif
+#ifdef NOMAD_OIDN_CUDA
+  #define OIDN_DEVICE_CUDA
+#endif
+#ifdef NOMAD_OIDN_HIP
+  #define OIDN_DEVICE_HIP
+#endif
+#ifdef NOMAD_OIDN_METAL
+  #define OIDN_DEVICE_METAL
+#endif
+
 #cmakedefine OIDN_FILTER_RT
 #cmakedefine OIDN_FILTER_RTLIGHTMAP

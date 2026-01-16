@@ -4,17 +4,17 @@
 find_package(Threads REQUIRED)
 
 # oneTBB
-set(OIDN_TBB_MIN_VERSION 2017.0)
-if(TBB_ROOT)
-  find_package(TBB ${OIDN_TBB_MIN_VERSION} COMPONENTS tbb CONFIG NO_DEFAULT_PATH)
-else()
-  find_package(TBB ${OIDN_TBB_MIN_VERSION} COMPONENTS tbb CONFIG)
-endif()
-if(NOT TBB_FOUND)
-  # Fall back to our FindTBB.cmake
-  unset(TBB_DIR CACHE)
-  find_package(TBB ${OIDN_TBB_MIN_VERSION} REQUIRED tbb)
-endif()
+# set(OIDN_TBB_MIN_VERSION 2017.0)
+# if(TBB_ROOT)
+#   find_package(TBB ${OIDN_TBB_MIN_VERSION} COMPONENTS tbb CONFIG NO_DEFAULT_PATH)
+# else()
+#   find_package(TBB ${OIDN_TBB_MIN_VERSION} COMPONENTS tbb CONFIG)
+# endif()
+# if(NOT TBB_FOUND)
+#   # Fall back to our FindTBB.cmake
+#   unset(TBB_DIR CACHE)
+#   find_package(TBB ${OIDN_TBB_MIN_VERSION} REQUIRED tbb)
+# endif()
 
 if(APPLE AND OIDN_ARCH STREQUAL "ARM64")
   # BNNS
@@ -186,7 +186,9 @@ else()
   )
 endif()
 
-target_link_libraries(OpenImageDenoise_device_cpu PRIVATE OpenImageDenoise_core ${CMAKE_THREAD_LIBS_INIT} TBB::tbb)
+# target_link_libraries(OpenImageDenoise_device_cpu PRIVATE OpenImageDenoise_core ${CMAKE_THREAD_LIBS_INIT} TBB::tbb)
+target_include_directories(OpenImageDenoise_device_cpu PRIVATE ${CMAKE_SOURCE_DIR}/lib/oneTBB/include)
+target_link_libraries(OpenImageDenoise_device_cpu PRIVATE OpenImageDenoise_core ${CMAKE_THREAD_LIBS_INIT})
 
 if(OIDN_STATIC_LIB)
   oidn_install_static_module(OpenImageDenoise_device_cpu)
